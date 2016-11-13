@@ -60,7 +60,7 @@ def processRequest( json, data, headers, params ):
 headers = {
     # Request headers
     'Content-Type': 'application/json',
-    'Ocp-Apim-Subscription-Key': '9d317db38ed24d859240f407b2e02867',
+    'Ocp-Apim-Subscription-Key': '######',
 }
 
 params = urllib.urlencode({
