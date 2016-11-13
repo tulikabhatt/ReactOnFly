@@ -1,4 +1,10 @@
-venv/*
-venv
+newvenv/*
+newvenv
 ssl.key
 ssl.cert
+filename0.jpg
+filename1.jpg
+filename2.jpg
+filename3.jpg
+filename4.jpg
+
