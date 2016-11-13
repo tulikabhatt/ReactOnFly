@@ -3,7 +3,7 @@ from azure.storage.blob import PublicAccess
 from azure.storage.blob import ContentSettings
 
 def saveFile():
-    mykey = "UGMnwCrlJ5IJB9maLEThvKHbU4MkDnoPNXk9LFrJPkXIX5LR47tU7yPAWS6Zh3OC8h1xd/tYetCfpLC/a8fv8g=="
+    mykey = "######"
     myaccount = 'reactonfly'
     mycontainer = 'images'
     for i in range(0,5):
