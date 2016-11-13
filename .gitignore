@@ -1,5 +1,5 @@
 newvenv/*
-newvenv
+newvenv/
 ssl.key
 ssl.cert
 filename0.jpg
