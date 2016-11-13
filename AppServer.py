@@ -6,10 +6,9 @@ Created on Sat Nov 12 15:33:54 2016
 """
 
 import pygame, pygame.camera, time
-from werkzeug.utils import secure_filename
-import os, flask, json
-from flask import Flask, request, render_template, session, redirect 
-from flask import send_from_directory, url_for, make_response
+import os, flask, json, storefilesintoazure, emotioncog
+from flask import Flask, request
+
 
 application = Flask(__name__)
 
@@ -23,15 +22,22 @@ def getImages():
         filename="filename"+str(i)+".jpg"
         pygame.image.save(img,filename)
     cam.stop()
+    storefilesintoazure.saveFile()
     #var = 0
-    for i in range(0,5):
-        filename="filename"+str(i)+".jpg"
-        getEmotion(filename)
+    getEmotion()
     return json.dumps({"value":True})
     
 
-def getEmotion(filename):
-    return json.dumps({"value":True})    
+def getEmotion():
+    count = 0
+    for i in range(0,5):
+        link="https://reactonfly.blob.core.windows.net/images/myblockblob"+str(i)
+        if(emotioncog.processLinkForEmotion(link)):
+            count = count + 1
+    if count>=3:
+        return json.dumps({"value":True})
+    else:
+        return json.dumps({"value":True})
 
 
 

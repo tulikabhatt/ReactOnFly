@@ -2,13 +2,6 @@ import httplib, urllib, base64
 import json
 
 def get_strongest_emotion(raw_result):
-    """
-        Returns:
-            The strongest emotion in image or if there's multiple faces a list representing
-                strongest emotion in each face is returned.
-        MIT liscence for this function from https://github.com/zooba/projectoxford
-    """
-
     num_faces, res = len(raw_result), raw_result
     if num_faces < 1:
         return None
@@ -72,16 +65,28 @@ headers = {
 
 params = urllib.urlencode({
 })
-
-try:
-    conn = httplib.HTTPSConnection('api.projectoxford.ai')
-    link = "https://reactonfly.blob.core.windows.net/images/filename4.jpg"
-    d = json.dumps({"url": link})
-    conn.request("POST", "/emotion/v1.0/recognize?%s" % params, d, headers)
-    response = conn.getresponse()
-    data = response.read()
-    print data
-    print get_strongest_emotion(json.loads(data))
-    conn.close()
-except Exception as e:
-    print e
+def processLinkForEmotion(link):
+    try:
+        conn = httplib.HTTPSConnection('api.projectoxford.ai')
+        #link = "https://reactonfly.blob.core.windows.net/images/myblockblob0"
+        d = json.dumps({"url": link})
+        conn.request("POST", "/emotion/v1.0/recognize?%s" % params, d, headers)
+        response = conn.getresponse()
+        data = response.read()
+        #print data
+        flag = False
+        emotion = get_strongest_emotion(json.loads(data)) 
+        if emotion in ["anger","contempt","disgust","fear", "sadness"]:
+            #print emotion
+            flag = False
+        elif emotion in ["happiness","neutral","surprise"]:
+            #print emotion
+            #print("positive")
+            flag = True
+        
+        conn.close()
+        return flag
+    except Exception as e:
+        print e
+        
+#processLinkForEmotion()
